@@ -1,0 +1,80 @@
+RSA - Public key ciphering 
+Author: Petr Pospisil
+Contact: petr_pospisil@yahoo.no
+--------------------------------
+
+Abstract
+--------
+The objective of this assignment was design and write own implementation of RSA - public-key cryptosystem. For reaching this goal was used programming language Python v3.4.3. Application is written as one single object thus it's possible to use in others projects without special treatment. The enviroment is clearly command-line. Application is fully working and sufficent for academic purposes. It offers ciphering and deciphering of basic text and numbers. However, during designing were overlooked some details which resulted in the pointless weakening cipher during final testing.  
+
+
+Introduction
+------------
+RSA is one of the first practical public-key cryptosystems and is widely used for secure data transmission. In such a cryptosystem, the encryption key is public and differs from the decryption key which is kept secret. In RSA, this asymmetry is based on the practical difficulty of factoring the product of two large prime numbers, the factoring problem. RSA is made of the initial letters of the surnames of Ron Rivest, Adi Shamir, and Leonard Adleman, who first publicly described the algorithm in 1977. [2]
+
+
+Design and Implementation
+-------------------------
+!!!! For detailed description of methods continue to ./RSA.obj_documentation.txt or source code ./RSA.py, where you find same description.
+* Python 3.4.3 with command-line 
+* RSA is implemented like single object RSA.py
+* RSA require 3 input parameters
+	* input text
+		------------------------------------------------------------------------------------------------------
+		* plain text or ciphered text
+		* no limited lenght
+		* limited input letters
+			* self.alphabet_convert_table =  ['Q','G','E','R','T','S','U','.','O','L','K','J','H','F',' ',
+											  'D','P','W','X','C','!','I','Y','M','V','Z','/',';','B','[',
+											  ']','N','-','0','9','A','7','6','5','4','3','2','1',',','?','8']
+			* for extension of alphabet, just add letters to array
+		-------------------------------------------------------------------------------------------------------
+	* mode 
+		* ciphering or deciphering mode
+		* input 1/0
+	* magic shift 
+		* Shifts every letter for certain number
+
+		
+Test Results
+------------
+!!!! For Logs from application continue to ./Ciphering_LOG_example.txt and ./DEciphering_LOG_example.txt
+
+During implementation were remarked several problems:
+	* How to merge data in blocks for ciphering afterwards?
+	* How to decipher ciphered message with huge parameters like N and E?
+
+
+Discussion
+----------
+As was said during previous parts, my implementation is working well. However, there was several problems which I was able solve, but not in good way. 
+
+The biggest problem of this solution is implementation of pairing function. My goal was to merge several INTEGER numbers into one INTEGER. After testing everything was fine, pairing function is working very well for mergin of array with 4 INTEGERS. Problem showed up when I tryied use pairing on array of +- 8 numbers and more. Numbers were growing exponentionaly and my RSA wasn't able to cipher such a huge numbers anymore. So block size was set up on 4 INTEGERS. Thus working with INTEGERS wasn't good option and problem could be solved by using binary form instead. [3]
+
+Second problem was about functions for pow and mod. From first I was trying to improve mod and pow functions separately. After one day of googling I finaly realized that I have to join these functions together. The improvement of perfomance was incomparable. [5]
+
+Anyway, this implementation of RSA is not strong enough for usage during secret communication. For improvement it would be important to change algorithm for merging content in blocks. Then apply ciphering with bigger parameters. It can be achieved by improving random primes generator. With bigger primes, it would be possible to cipher bigger messages and improve their security. 
+
+
+Conclusion
+----------
+The assignment was successfully completed. It's fully working. Unfortunaly during implementation were done several mistakes like not sufficent blocks size.  
+
+Points to future improvement:
+* Faster primes generator -> Stronger encryption
+* Use improved pow and mod function for ciphering
+* Change merging function for blocks. -> blocks with at least 256bit size.
+* Add GUI - user friendly interface
+* Add more options for user to work with RSA -> Just small change of code can allow user signing.
+
+
+Works Cited
+-----------
+
+1, Stallings, W., & Stallings, W. (1999). Cryptography and network security: Principles and practice (3nd ed.). Upper Saddle River, N.J.: Prentice Hall.
+2, RSA. n.d. In Wikipedia. Retrieved October 18, 2015 from https://en.wikipedia.org/wiki/RSA_(cryptosystem)
+3, Pairing function. n.d. In Wikipedia. Retrieved October 18, 2015 from https://en.wikipedia.org/wiki/Pairing_function
+4, Lam, Kenwin. [Kenny Lam]. (2012, August 4). RSA Cipher Explained [Video file]. Retrieved from https://www.youtube.com/watch?v=tXXnHXslVhw
+5, Calculating pow(a,b) mod n. (n.d.). Retrieved October 18, 2015, from http://stackoverflow.com/questions/8496182/calculating-powa-b-mod-n
+
+

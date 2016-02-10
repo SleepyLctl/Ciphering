@@ -1,0 +1,110 @@
+####Comments from source, same as in RSA.py
+@author: Petr Pospisil
+
+class RSA():
+		# My implementation of RSA cipher
+		# Just for study purposes
+    
+    def __init__(self, INPUT, mode, magic_shift):
+
+    def prime_gen(self):
+        # Returns array of n huge primes
+        # Used from Assign. #1, not bad, but for bigger blocks needed better one. Primes are approx. 100bits big.     
+
+    def n_calculation(self, primes_array):
+        # Return p,q,n numbers
+        # Just some basics params of RSA ciphering. 
+        # n = p * q
+
+    def egcd(self, a, b):
+        # For better perfomance used editted algorithm from https://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
+        # Extended Euclid Algorithm
+        # used for finding E
+        # return egcd
+     
+    def find_e(self, fi):
+        # Finding e for ciphering with egcd() function above
+        # Pick E vaue from suggested values or pick whatever else by your choice.
+		# returns e
+
+    def fi_calculation(self, p, q): 
+		# easy calculation of phi,         
+		# fi = p_minus * q_minus
+		# return phi
+
+    def inverse(self, x, m):
+		# returns inverse EGCD
+
+    def d_calculation(self, e, fi):
+        # calculation of D based on inverse function above
+		# checking if its right. 
+		# D = e * mod fi = 1
+		# returns D
+
+    def show_keys(self, d, e, n):
+        # returns d, e, n in beautiful format
+
+    def character_decoder(self, plaintext):
+		# converts CHARs to INTEGER
+		# shifts letters by certain numbers 
+		# returns array of shifted numbers
+
+    def block_maker(self, numbers_array, block_size):
+		# from Assign #1 
+		# calculate how many blocks are needed 
+		# parse array of numbers to blocks 
+		# returns array of blocks 
+
+    def encrypt_it(self, blocks, e, n):
+		# encrypting blocks 
+		# because of small e and small blocks, not hard to calculate.
+		# for better perfomance:
+		#	> instead of ** use function ipow()
+		#	> or even better function modpow() - combination of pow and mod ...
+		#	... (skipping saving-to-variables time and skipping 2 diffic. operations(pow + mod) instead of only one easy (mod and pow in one function))
+		# I'm aware of mistakes in this function, keeping it like that for study purposes 
+
+	def pairing(self, a, b):
+		# https://en.wikipedia.org/wiki/Pairing_function
+		# GOOD IDEA, BAD RESULT :] Particularly proud of me, even it wasn't good idea at the end. 
+		# Implementation of Math Pairing function for merging numbers in blocks
+		# Taking 2 INTEGERS and returns one merged INTEGER
+		# Actually good idea, I was googling for some solution how to merge integers quite long time. Then I implemented this sollution...
+		# ...unfortunally, I didn't expect HUGE rise of merged integer. So when I was trying to merge block of 8 numbers, RESULT ...
+		# ...was such huge number, I wasnt able to cipher it anymore with primes available from generator. 
+		# Maximum of merged numbers - 4-6 INTEGERS, then is numbers huge (+- 10exp150 ??)
+		# Because of this function I'm not able to cipher blocks bigger then 4 INTEGERS
+		# Solution... Just next time dont try to work with INTEGERS, and keep working with binary numbers. Convert text to binary form instead of 
+		# integers.
+
+    def unpair(self, c):
+		# recovering numbers from pairing function
+		# require INTEGER returns 2 INTEGERS, one original number, one merged for another unpairing.
+
+    def shrink_it(self, blocks, block_size):
+		# just using pairing function
+
+    def ipow(self, base, exp):
+        # Cryptographic pow
+		# I was looking for solution how to decrypt ciphered text quite long time. It was tooking my computer more then 10 minutes from the begin and most of times 
+		# it ended with crash. Then I realized that only way how to decrypt message is to merge pow and mod together - function modpow(). Keeping this function for
+		# future use.    
+
+    def modpow(self, base, exp, modulus):
+    	# combination od mod and pow
+		# only way how to deal with huge numbers like RSA cipher.
+		# inpirated by solution on StackOverflow, after one day of trying to use libraries like math.pow etc. ...
+		# ...I gave up. Did not realize that 100000000000 pow 1000000 is basically load for months.
+
+    def decrypt_it(self, blocks, d, n):
+        # just practical use of modpow and returning of deciphered but still merged number.
+
+    def unshrink(self, blocks, blocksize):
+		# Require deciphered, merged number
+		# From one INTEGER recovers rest of numebers - pairing/unpairing function more above.
+		# returns array of numbers. 
+
+    def slice_input(self, INPUT):
+		# Just formating stuff for deciphering INPUT
+		# From input are deleted any letters which are not numbers, and ','
+		# returns clean array of ciphered blocks ready to decipher
