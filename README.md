@@ -1,2 +1,2 @@
 # Ciphering
-Students project in ciphering
+Student projects in cryptography
